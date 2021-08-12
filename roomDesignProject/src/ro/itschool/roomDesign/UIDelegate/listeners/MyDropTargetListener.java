@@ -1,5 +1,6 @@
 package ro.itschool.roomDesign.UIDelegate.listeners;
 
+import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.datatransfer.Transferable;
@@ -7,9 +8,12 @@ import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetAdapter;
 import java.awt.dnd.DropTargetDropEvent;
+import java.awt.image.BufferedImage;
+import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 
 import ro.itschool.roomDesign.UIDelegate.CanvasPanel;
+import ro.itschool.roomDesign.UIDelegate.ImageUtil;
 import ro.itschool.roomDesign.UIDelegate.TransferableItemButton;
 
 /**
@@ -29,6 +33,16 @@ public class MyDropTargetListener extends DropTargetAdapter {
 			Transferable tr = event.getTransferable();
 			TransferableItemButton button = (TransferableItemButton) tr
 					.getTransferData(TransferableItemButton.buttonFlavor);
+
+			//The Image from Icon is an instance of ToolkitImage which cannot be converted to BufferedImage
+			ImageIcon i = (ImageIcon) button.getIcon();
+			Image image = (Image) i.getImage();
+			int pixels[] = ImageUtil.imagePixelsToArray(image);
+
+			BufferedImage bufferedImage = ImageUtil.pixelsToBufferedImage(pixels, image.getWidth(null),
+					image.getHeight(null));
+			button.setIcon(new ImageIcon(bufferedImage));
+
 			button.configure();
 
 			if (event.isDataFlavorSupported(TransferableItemButton.buttonFlavor)) {

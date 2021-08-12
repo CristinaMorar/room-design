@@ -19,6 +19,7 @@ import javax.swing.ListSelectionModel;
 import ro.itschool.roomDesign.UIDelegate.CanvasPanel;
 import ro.itschool.roomDesign.UIDelegate.DialogsUtil;
 import ro.itschool.roomDesign.UIDelegate.FileUtil;
+import ro.itschool.roomDesign.UIDelegate.ImageUtil;
 import ro.itschool.roomDesign.UIDelegate.TransferableItemButton;
 import ro.itschool.roomDesign.model.DesignElement;
 
@@ -74,7 +75,7 @@ public class OpenFileActionListener implements ActionListener {
 						item.setImageAddress(itemAsArray[5]);
 
 						ImageIcon imageIcon = new ImageIcon(item.getImageAddress());
-						imageIcon = FileUtil.getScaledImageIcon(imageIcon.getImage(), item.getWidth(),
+						imageIcon = ImageUtil.getScaledImageIcon(imageIcon.getImage(), item.getWidth(),
 								item.getHeight());
 
 						TransferableItemButton button = new TransferableItemButton(imageIcon);
