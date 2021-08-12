@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import ro.itschool.roomDesign.UIDelegate.CanvasPanel;
 import ro.itschool.roomDesign.UIDelegate.DialogsUtil;
-import ro.itschool.roomDesign.UIDelegate.FileUtil;
+import ro.itschool.roomDesign.UIDelegate.ImageUtil;
 import ro.itschool.roomDesign.UIDelegate.TransferableItemButton;
 
 /**
@@ -27,7 +27,7 @@ public class ToolbarItemsActionListener implements ActionListener {
 
 			ImageIcon imageIcon = (ImageIcon) button.getIcon();
 
-			imageIcon = FileUtil.getScaledImageIcon(imageIcon.getImage(), imageDimension.width, imageDimension.height);
+			imageIcon = ImageUtil.getScaledImageIcon(imageIcon.getImage(), imageDimension.width, imageDimension.height);
 
 			TransferableItemButton itemButton = new TransferableItemButton(imageIcon);
 
