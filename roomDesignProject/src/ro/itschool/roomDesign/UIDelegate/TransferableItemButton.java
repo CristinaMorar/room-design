@@ -5,12 +5,17 @@ import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DragSource;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import ro.itschool.roomDesign.UIDelegate.listeners.DesignElementMouseListener;
+import javax.swing.JOptionPane;
+
 import ro.itschool.roomDesign.UIDelegate.listeners.ItemButtonDragGestureListener;
 import ro.itschool.roomDesign.UIDelegate.listeners.MyDropTargetListener;
 
@@ -39,10 +44,13 @@ public class TransferableItemButton extends JButton implements Transferable {
 
 	/**
 	 * Configures the current button to be movable on the canvas.
+	 * 
+	 * Adds listeners so that on a click the element comes on top layer and on
+	 * double-click it gives the user the option to delete it.
 	 */
 	@SuppressWarnings("unused")
 	public void configure() {
-		this.setToolTipText("double-click to rotate/left-click to delete");
+		this.setToolTipText("double-click to delete");
 		this.setBorder(BorderFactory.createEmptyBorder());
 		this.setContentAreaFilled(false);
 
@@ -51,8 +59,27 @@ public class TransferableItemButton extends JButton implements Transferable {
 		ItemButtonDragGestureListener dragListener = new ItemButtonDragGestureListener();
 		ds.createDefaultDragGestureRecognizer(this, DnDConstants.ACTION_COPY, dragListener);
 
-		this.addMouseListener(new DesignElementMouseListener(this));
+		this.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				CanvasPanel.getInstance().setLayer(TransferableItemButton.this,
+						CanvasPanel.getInstance().highestLayer() + 1);
+			}
+		});
 
+		this.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent event) {
+				if (event.getClickCount() == 2 && event.getButton() == MouseEvent.BUTTON1) {
+					int result = JOptionPane.showConfirmDialog(null, "Delete this item?", "Delete",
+							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+					if (result == JOptionPane.YES_OPTION) {
+						CanvasPanel.getInstance().remove(TransferableItemButton.this);
+						CanvasPanel.getInstance().revalidate();
+						CanvasPanel.getInstance().repaint();
+					}
+				}
+			}
+		});
 		this.wasConfigured = true;
 	}
 

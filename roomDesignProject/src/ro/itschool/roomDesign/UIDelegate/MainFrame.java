@@ -233,7 +233,7 @@ public class MainFrame extends JFrame {
 			BufferedImage image = null;
 			try {
 				image = ImageIO.read(file);
-				ImageIcon imageIcon = ImageUtil.getScaledImageIcon(image, imageSize, imageSize);
+				ImageIcon imageIcon = FileUtil.getScaledImageIcon(image, imageSize, imageSize);
 
 				JButton designElement = new JButton(imageIcon);
 

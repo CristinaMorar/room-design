@@ -40,6 +40,7 @@ public class SaveActionListener implements ActionListener {
 	 */
 	private void saveComponentsToFile(String fileName) {
 		File fileToSave = new File("./saved/" + fileName);
+		System.out.println(fileToSave.getPath());
 		try {
 			if (!fileToSave.createNewFile()) {
 				DialogsUtil.showErrorMessage("File already exists.");
