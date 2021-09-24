@@ -20,22 +20,22 @@ public class ResizeActionListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Dimension canvasDimension = DialogsUtil.showDialogDimension("Add the dimension of the room in cm.");
-		if (canvasDimension != null) {
-			if (canvasDimension.getWidth() < 200 || canvasDimension.getHeight() < 200) {
+		Dimension roomDimension = DialogsUtil.showDialogDimension("Add the dimension of the room in cm.");
+		if (roomDimension != null) {
+			if (roomDimension.getWidth() < 200 || roomDimension.getHeight() < 200) {
 				DialogsUtil.showErrorMessage("The room dimensions should not be less than 200 cm.");
 				this.actionPerformed(e);
 				return;
 			}
-			int frameWidth = canvasDimension.width;
-			int frameHeight = canvasDimension.height + Start.mainFrame.getBottomToolbarSize().height
+			int frameWidth = roomDimension.width;
+			int frameHeight = roomDimension.height + Start.mainFrame.getBottomToolbarSize().height
 					+ MainFrame.TOP_OFFSET;
 
 			if (Start.mainFrame.isLeftPanelVisible()) {
 				frameWidth += Start.mainFrame.getLeftPanel().getWidth() + MainFrame.LEFT_OFFSET;
 			}
 
-			Start.mainFrame.setCanvasDimensionLabel(canvasDimension.width, canvasDimension.height);
+			Start.mainFrame.setCanvasDimensionLabel(roomDimension.width, roomDimension.height);
 			Start.mainFrame.setSize(frameWidth, frameHeight);
 			Start.mainFrame.setLocationRelativeTo(null);
 			Start.mainFrame.revalidate();

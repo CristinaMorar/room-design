@@ -17,11 +17,12 @@ import javax.swing.JTextField;
 public class DialogsUtil {
 
 	/**
-	 * Creates a confirm dialog for the user to provide dimensions for the
-	 * wanted object.
+	 * Creates a confirm dialog for the user to provide dimensions for the wanted
+	 * object.
 	 * 
 	 * @param message stating what the dimensions are for
-	 * @return the inputed dimensions as a {@code Dimension} object or {@code null} if canceled or exited.
+	 * @return the inputed dimensions as a {@code Dimension} object or {@code null}
+	 *         if canceled or exited.
 	 */
 	public static Dimension showDialogDimension(String message) {
 		JTextField widthField = new JTextField();
@@ -37,26 +38,25 @@ public class DialogsUtil {
 		int result = JOptionPane.showConfirmDialog(null, panel, "Dimension", JOptionPane.OK_CANCEL_OPTION,
 				JOptionPane.PLAIN_MESSAGE);
 		if (result == JOptionPane.OK_OPTION) {
-			if (widthField.getText().trim().isEmpty() || heightField.getText().trim().isEmpty()) {
-				showErrorMessage("Please add values in both fields.");
-				return showDialogDimension(message);
-			} else {
-				int widthInPX = Integer.parseInt(widthField.getText()) * CanvasPanel.CELL_SIZE_PX
+			try {
+				int widthInPX = Integer.parseInt(widthField.getText().trim()) * CanvasPanel.CELL_SIZE_PX
 						/ CanvasPanel.CELL_SIZE_CM;
-				int heightInPX = Integer.parseInt(heightField.getText()) * CanvasPanel.CELL_SIZE_PX
+				int heightInPX = Integer.parseInt(heightField.getText().trim()) * CanvasPanel.CELL_SIZE_PX
 						/ CanvasPanel.CELL_SIZE_CM;
 				return new Dimension(widthInPX, heightInPX);
+			} catch (NumberFormatException formatException) {
+				showErrorMessage("Please add the dimensions in both fields using digits only.");
+				return showDialogDimension(message);
 			}
 		} else {
 			return null;
 		}
 	}
 
-	
 	/**
 	 * Creates a confirm dialog asking for the name of the file to be saved.
 	 * 
-	 * @return the given file name  or {@code null} if canceled or exited.
+	 * @return the given file name or {@code null} if canceled or exited.
 	 */
 	public static String showDialogFileName() {
 		JPanel panel = new JPanel(new GridLayout(2, 1));
