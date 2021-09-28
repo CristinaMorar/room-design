@@ -31,6 +31,7 @@ public class DesignElementMouseListener extends MouseAdapter {
 
 		if (event.getClickCount() == 2 && event.getButton() == MouseEvent.BUTTON1) {
 			ImageIcon rotatedIcon = (ImageIcon) ImageUtil.rotateImage(button.getIcon());
+			button.setSize(rotatedIcon.getIconWidth(), rotatedIcon.getIconHeight());
 			button.setIcon(rotatedIcon);
 			CanvasPanel.getInstance().revalidate();
 			CanvasPanel.getInstance().repaint();

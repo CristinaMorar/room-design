@@ -74,6 +74,7 @@ public class MainFrame extends JFrame {
 		pack();
 
 		this.setAllSet(true);
+		
 	}
 
 	public void setCanvasDimensionLabel(int width, int height) {

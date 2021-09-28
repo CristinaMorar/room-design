@@ -1,5 +1,6 @@
 package ro.itschool.roomDesign;
 
+import ro.itschool.roomDesign.UIDelegate.DialogsUtil;
 import ro.itschool.roomDesign.UIDelegate.MainFrame;
 
 /**
@@ -15,5 +16,6 @@ public class Start {
 	public static void main(String[] args) {
 		mainFrame = new MainFrame();
 		mainFrame.setVisible(true);
+		DialogsUtil.showMessage("Welcome! We wish you a great experiance with us. To select an item, double-click it.");
 	}
 }
